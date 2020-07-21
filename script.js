@@ -1,6 +1,6 @@
 function initialiseContent() {
-	initialiseSlider();
 	initialiseMenu();
+	initialiseSlider();
 	populateMenu();
 }
 
@@ -36,7 +36,7 @@ function populateMenu() {
 }
 
 function populateContainer(dishList) {
-	let cardContainer = document.getElementById("div-container2");
+	let cardContainer = document.getElementById("container2");
 
 	let maxLength=cardContainer.childNodes.length;
 	for (var i = 1; i<=maxLength; i++) {
@@ -80,11 +80,9 @@ function initialiseSlider() {
         mode: 'steps',
         density: 5,
         format: dollarPrefixFormat
-    }
-   
-	});
+    }});
 
-	slider2.on('update', function(values){
+	slider2.on('update', function(values) {
 	 	let newList = JSON.parse(localStorage.getItem("allMenuItems"));
 	    let filteredItems = filterItems(newList, values)
 	    populateContainer(filteredItems);
@@ -92,6 +90,7 @@ function initialiseSlider() {
 }
 
 function filterItems(items, price) {
+	if (!items) return 
     return items.filter(item => {
     	return parseFloat(item.price) >= parseFloat(price[0]) && parseFloat(item.price) <= parseFloat(price[1])
     })
